@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model categories {
+  category_id   BigInt @id @default(autoincrement())
+  category_name String @unique(map: "category_name") @db.VarChar(20)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model conversations {
+  conversation_id BigInt
+  order_id        BigInt
+  sender_id       BigInt
+  message         String   @db.Text
+  created_at      DateTime @db.DateTime(0)
+  orders          orders   @relation(fields: [order_id], references: [order_id], onDelete: Cascade, map: "fk_conversations_orders")
+  users           users    @relation(fields: [sender_id], references: [user_id], onUpdate: Restrict, map: "fk_conversations_users_sender")
+
+  @@index([order_id], map: "fk_conversations_orders")
+  @@index([sender_id], map: "fk_conversations_users_sender")
+  @@ignore
+}
+
+model location {
+  location_id   BigInt  @id @default(autoincrement())
+  location_name String  @unique(map: "location_name") @db.VarChar(20)
+  users         users[]
+}
+
+model orders {
+  order_id                       BigInt          @id @default(autoincrement())
+  skill_id                       BigInt
+  client_id                      BigInt
+  offerer_id                     BigInt
+  price                          Float
+  status                         String          @db.VarChar(10)
+  appointment_date               DateTime        @db.DateTime(0)
+  conversations                  conversations[] @ignore
+  skills                         skills          @relation(fields: [skill_id], references: [skill_id], onUpdate: Restrict, map: "fk_orders_skills")
+  users_orders_client_idTousers  users           @relation("orders_client_idTousers", fields: [client_id], references: [user_id], onUpdate: Restrict, map: "fk_orders_users_client")
+  users_orders_offerer_idTousers users           @relation("orders_offerer_idTousers", fields: [offerer_id], references: [user_id], onUpdate: Restrict, map: "fk_orders_users_offerer")
+
+  @@index([skill_id], map: "fk_orders_skills")
+  @@index([client_id], map: "fk_orders_users_client")
+  @@index([offerer_id], map: "fk_orders_users_offerer")
+}
+
+model reviews {
+  review_id                             BigInt   @id @default(autoincrement())
+  rating                                Int      @db.TinyInt
+  comment                               String   @db.Text
+  created_at                            DateTime @db.DateTime(0)
+  reviewer_user_id                      BigInt
+  reviewed_user_id                      BigInt
+  users_reviews_reviewed_user_idTousers users    @relation("reviews_reviewed_user_idTousers", fields: [reviewed_user_id], references: [user_id], onDelete: Cascade, map: "fk_reviews_users_reviewed")
+  users_reviews_reviewer_user_idTousers users    @relation("reviews_reviewer_user_idTousers", fields: [reviewer_user_id], references: [user_id], onDelete: Cascade, map: "fk_reviews_users_reviewer")
+
+  @@index([reviewed_user_id], map: "fk_reviews_users_reviewed")
+  @@index([reviewer_user_id], map: "fk_reviews_users_reviewer")
+}
+
+model roles {
+  role_id   BigInt  @id @default(autoincrement())
+  role_name String  @unique(map: "role_name") @db.VarChar(15)
+  users     users[]
+}
+
+model skills {
+  skill_id          BigInt        @id @default(autoincrement())
+  skill_name        String        @unique(map: "skill_name") @db.VarChar(20)
+  category_name     String        @db.VarChar(20)
+  skill_description String        @db.Text
+  orders            orders[]
+  user_skills       user_skills[]
+}
+
+model user_skills {
+  user_skills_id BigInt @id @default(autoincrement())
+  user_id        BigInt
+  skill_id       BigInt
+  skills         skills @relation(fields: [skill_id], references: [skill_id], onDelete: Cascade, map: "fk_user_skills_skills")
+  users          users  @relation(fields: [user_id], references: [user_id], onDelete: Cascade, map: "fk_user_skills_users")
+
+  @@index([skill_id], map: "fk_user_skills_skills")
+  @@index([user_id], map: "fk_user_skills_users")
+}
+
+model users {
+  user_id                                 BigInt          @id @default(autoincrement())
+  username                                String          @db.VarChar(20)
+  email                                   String          @db.VarChar(20)
+  password                                String          @db.VarChar(20)
+  role_id                                 BigInt
+  location_id                             BigInt
+  bio                                     String          @db.Text
+  conversations                           conversations[] @ignore
+  orders_orders_client_idTousers          orders[]        @relation("orders_client_idTousers")
+  orders_orders_offerer_idTousers         orders[]        @relation("orders_offerer_idTousers")
+  reviews_reviews_reviewed_user_idTousers reviews[]       @relation("reviews_reviewed_user_idTousers")
+  reviews_reviews_reviewer_user_idTousers reviews[]       @relation("reviews_reviewer_user_idTousers")
+  user_skills                             user_skills[]
+  location                                location        @relation(fields: [location_id], references: [location_id], onUpdate: Restrict, map: "fk_user_location")
+  roles                                   roles           @relation(fields: [role_id], references: [role_id], onUpdate: Restrict, map: "fk_user_role")
+
+  @@unique([username, email], map: "username")
+  @@index([location_id], map: "fk_user_location")
+  @@index([role_id], map: "fk_user_role")
+}
