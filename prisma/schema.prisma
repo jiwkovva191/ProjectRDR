@@ -1,10 +1,10 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
+  url = env("DATABASE_URL")
 }
 
 model categories {
@@ -27,7 +27,7 @@ model conversations {
   @@ignore
 }
 
-model location {
+model locations {
   location_id   BigInt  @id @default(autoincrement())
   location_name String  @unique(map: "location_name") @db.VarChar(20)
   users         users[]
@@ -105,7 +105,7 @@ model users {
   reviews_reviews_reviewed_user_idTousers reviews[]       @relation("reviews_reviewed_user_idTousers")
   reviews_reviews_reviewer_user_idTousers reviews[]       @relation("reviews_reviewer_user_idTousers")
   user_skills                             user_skills[]
-  location                                location        @relation(fields: [location_id], references: [location_id], onUpdate: Restrict, map: "fk_user_location")
+  locations                                locations        @relation(fields: [location_id], references: [location_id], onUpdate: Restrict, map: "fk_user_location")
   roles                                   roles           @relation(fields: [role_id], references: [role_id], onUpdate: Restrict, map: "fk_user_role")
 
   @@unique([username, email], map: "username")

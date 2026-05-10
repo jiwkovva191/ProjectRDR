@@ -12,6 +12,6 @@
   },
   "include": [
     "src",
-    "prisma.config.ts"
+    "node_modules/@prisma/client"
   ]
 }
