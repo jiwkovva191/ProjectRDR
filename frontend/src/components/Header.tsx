@@ -7,6 +7,7 @@ import {
     useState,
     useCallback
 } from "react";
+import AddSkillButton from "./AddSkillButton.tsx";
 
 interface SearchResult {
 
@@ -101,10 +102,17 @@ const Header = () => {
                 </div>
 
             </div>
+<div className="flex items-center gap-3 ml-6">
+            <Link to={'/addSkill'}>
+                <AddSkillButton />
+            </Link>
 
             <Link to={'/login'}>
                 <LoginButton />
             </Link>
+    </div>
+
+
 
         </div>
 
