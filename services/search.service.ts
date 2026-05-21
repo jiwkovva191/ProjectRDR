@@ -1,5 +1,6 @@
-import { SearchModel }
-    from "../models/search.model";
+import {
+    SearchModel
+} from "../models/search.model";
 
 import {
     SearchResult

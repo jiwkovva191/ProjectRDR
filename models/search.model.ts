@@ -13,29 +13,32 @@ export class SearchModel {
         query: string
     ): Promise<SearchResult[]> {
 
-        return await prisma.skills.findMany({
+        const results =
+            await prisma.skills.findMany({
 
-            where: {
+                where: {
 
-                OR: [
+                    OR: [
 
-                    {
-                        skill_name: {
-                            contains: query
+                        {
+                            skill_name: {
+                                contains: query
+                            }
+                        },
+
+                        {
+                            skill_description: {
+                                contains: query
+                            }
                         }
-                    },
 
-                    {
-                        skill_description: {
-                            contains: query
-                        }
-                    }
+                    ]
 
-                ]
+                }
 
-            }
+            });
 
-        });
+        return results as SearchResult[];
 
     }
 
