@@ -30,10 +30,10 @@ const LoginSignForm = () => {
                         Sign In
                     </button>
 
-                <h5 className="text-center text-green-700 underline cursor-pointer"> Forgot Password?</h5>
+                <h5 className="text-center text-[#0F2D52] underline cursor-pointer"> Forgot Password?</h5>
                 <h5 className="text-center">Don't have an account? </h5>
                   <Link to ="/signup"
-                        className="block text-center text-green-700 underline cursor-pointer">
+                        className="block text-center text-[#0F2D52] underline cursor-pointer">
                       Sign up</Link>
             </div>
 
