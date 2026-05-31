@@ -1,5 +1,5 @@
 import express, { Application } from 'express';
-//import userRoutes from "../routes/user.routes";
+import userRoutes from "../routes/user.routes";
 import searchRoutes from "../routes/search.routes";
 import cors from "cors";
 import categoryRoutes from "../routes/category.routes";
@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 
-//app.use(userRoutes);   ТОВА Е КОМЕНТИРАНО, ЗАЩОТО ОЩЕ НЯМАМЕ BACKEND ЗА USER
+app.use(userRoutes);  
 app.use(searchRoutes);
 app.use(categoryRoutes);
 app.use(skillRoutes);
