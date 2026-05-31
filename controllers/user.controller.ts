@@ -19,7 +19,7 @@ export class UserController{
         const { id } = req.params
         const user = this.userService.findUserById(id as string);
         if(!user){
-            res.json({
+            res.status(404).json({
                 'message': 'User not found'
             })
             return;
@@ -32,7 +32,7 @@ export class UserController{
     createUser = (req: Request, res: Response) => {
         const { username, email } = req.body
         const user = this.userService.createUser({ username, email });
-        res.json({
+        res.status(201).json({
             'user': user,
         });
     }
@@ -42,7 +42,7 @@ export class UserController{
         const data = req.body;
         const user = this.userService.updateUser(id as string, data);
         if(!user){
-            res.json({
+            res.status(404).json({
                 'message': 'User not found'
             })
             return;
@@ -56,7 +56,7 @@ export class UserController{
         const { id } = req.params;
         const deleted = this.userService.deleteUser(id as string)
         if(!deleted){
-            res.json({
+            res.status(404).json({
                 'message': 'User not found'
             })
         }
