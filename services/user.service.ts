@@ -3,17 +3,15 @@ import { UserModel } from "../models/user.model"
 
 export class UserService{
 
-    constructor(private userModel: UserModel){
-
-    }
+    constructor(private userModel: UserModel){}
 
     async getAllUsers():Promise<User[]>
     {
         return await this.userModel.getAllUsers();
     }
 
-    findUserById(id: string): User | undefined{
-        return this.userModel.findUserById(id);
+    async findUserById(id: number): Promise<User | undefined>{
+        return await this.userModel.findUserById(id);
     }
 
     // createUser(data: {username: string, email: string}): User {

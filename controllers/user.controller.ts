@@ -1,6 +1,9 @@
 import {Request, Response} from "express";
 import { UserService } from "../services/user.service";
 
+interface IdParams{
+    id: string
+}
 
 export class UserController{
 
@@ -15,9 +18,9 @@ export class UserController{
         });
     }
 
-    findUserById = (req: Request, res: Response) => {
-        const { id } = req.params
-        const user = this.userService.findUserById(id as string);
+    findUserById = async (req: Request<IdParams>, res: Response): Promise<void> => {
+        const id  = Number(req.params.id);
+        const user = await this.userService.findUserById(id);
         if(!user){
             res.status(404).json({
                 'message': 'User not found'
@@ -25,6 +28,7 @@ export class UserController{
             return;
         }
         res.json({
+            'message': 'User found',
             'user': user,
         });
     }

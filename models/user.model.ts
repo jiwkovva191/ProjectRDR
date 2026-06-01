@@ -2,19 +2,21 @@ import { User } from "../types/User"
 import { Pool, RowDataPacket } from "mysql2/promise"
 export class UserModel{
 
-    constructor(private db: Pool){
-
-    }
+    constructor(private db: Pool){}
 
     async getAllUsers():Promise<User[]>{
-        const [rows] = await this.db.query(
-            `SELECT * FROM users`
+        const [rows] = await this.db.query<RowDataPacket[]>(
+            "SELECT * FROM users"
         );
         return rows as User[];
     }
 
-    findUserById(id: string): User | undefined{
-        return undefined
+    async findUserById(id: number): Promise<User | undefined>{
+       const [rows] = await this.db.query<RowDataPacket[]>(
+        "SELECT * FROM users WHERE user_id = ?",
+        [id]
+       );
+       return rows[0] as User;
     }
 
     createUser(user: User){
