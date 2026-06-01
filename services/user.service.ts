@@ -1,4 +1,4 @@
-import { User } from "../types/User"
+import { CreateUserDTO, User } from "../types/User"
 import { UserModel } from "../models/user.model"
 
 export class UserService{
@@ -14,11 +14,13 @@ export class UserService{
         return await this.userModel.findUserById(id);
     }
 
-    // createUser(data: {username: string, email: string}): User {
-    //     // const id = Date.now().toString();
-    //     // const user: User = {id, ...data}
-    //     // return this.userModel.createUser(user);
-    // }
+    async createUser(data: CreateUserDTO): Promise<User> {
+        return await this.userModel.createUser({
+            ...data,
+            role_id: 2,
+            location_id: 1, 
+        });
+    }
 
     updateUser(id: string, user: Partial<User>): User | undefined{
         return this.userModel.updateUser(id, user);

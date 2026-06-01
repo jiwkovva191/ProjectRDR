@@ -1,5 +1,5 @@
-import { User } from "../types/User"
-import { Pool, RowDataPacket } from "mysql2/promise"
+import { CreateUserDTO, User } from "../types/User"
+import { Pool, ResultSetHeader, RowDataPacket } from "mysql2/promise"
 export class UserModel{
 
     constructor(private db: Pool){}
@@ -19,10 +19,19 @@ export class UserModel{
        return rows[0] as User;
     }
 
-    createUser(user: User){
-        // this.users.set(user.id, user);
-        // return user;
-        return undefined;
+    // The role and location ids are hardcoded in the UserService and UserController for test purposes.
+    async createUser(user: CreateUserDTO): Promise<User>{
+        const [result] = await this.db.query<ResultSetHeader>(
+            "INSERT INTO users(user_id, username, email, role_id, location_id) VALUES (NULL, ?, ?, ?, ?)",
+            [user.username, user.email, user.role_id, user.location_id]
+        )
+        return{
+            id: result.insertId,
+            username: user.username,
+            email: user.email,
+            role_id: user.role_id,
+            location_id: user.location_id
+        }
     }
 
     updateUser(id: string, data: Partial<User>): User | undefined{

@@ -11,6 +11,10 @@ export interface User {
 }
 
 export interface CreateUserDTO{
-    name: string;
-    email: string;
+    username: string;
+    email: string;  
+    password?: string;
+    role_id?: number;
+    location_id?: number;
+    bio?: string
 }

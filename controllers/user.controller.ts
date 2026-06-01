@@ -33,13 +33,14 @@ export class UserController{
         });
     }
 
-    // createUser = (req: Request, res: Response) => {
-    //     const { username, email } = req.body
-    //     const user = this.userService.createUser({ username, email });
-    //     res.status(201).json({
-    //         'user': user,
-    //     });
-    // }
+    createUser = async (req: Request, res: Response): Promise<void> => {
+        const { username, email  } = req.body
+        const user = await this.userService.createUser({ username, email, role_id: 2, location_id: 1 });
+        res.status(201).json({
+            'message': 'User Created',
+            'user': user,
+        });
+    }
 
     updateUser = (req: Request, res: Response) => {
         const { id } = req.params;

@@ -14,7 +14,7 @@ const userController = new UserController(userService);
 
 userRoutes.get('/users', userController.getAllUsers);
 userRoutes.get('/users/:id', userController.findUserById);
-// userRoutes.post('/users', userController.createUser);
+userRoutes.post('/users', userController.createUser);
 userRoutes.put('/users/:id', userController.updateUser);
 userRoutes.delete('/users/:id', userController.deleteUser);
 
