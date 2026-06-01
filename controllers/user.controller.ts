@@ -8,8 +8,8 @@ export class UserController{
 
     }
 
-    getAllUsers = (req: Request, res: Response) => {
-        const users = this.userService.getAllUsers();      
+    getAllUsers = async (req: Request, res: Response): Promise<void> => {
+        const users = await this.userService.getAllUsers();      
         res.json({
             'users': users,
         });
@@ -29,13 +29,13 @@ export class UserController{
         });
     }
 
-    createUser = (req: Request, res: Response) => {
-        const { username, email } = req.body
-        const user = this.userService.createUser({ username, email });
-        res.status(201).json({
-            'user': user,
-        });
-    }
+    // createUser = (req: Request, res: Response) => {
+    //     const { username, email } = req.body
+    //     const user = this.userService.createUser({ username, email });
+    //     res.status(201).json({
+    //         'user': user,
+    //     });
+    // }
 
     updateUser = (req: Request, res: Response) => {
         const { id } = req.params;

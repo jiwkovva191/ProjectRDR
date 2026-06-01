@@ -1,36 +1,42 @@
 import { User } from "../types/User"
+import { Pool, RowDataPacket } from "mysql2/promise"
 export class UserModel{
 
-    // TODO: Replace with db when available
-    constructor(private users:Map<string, User>){
+    constructor(private db: Pool){
 
     }
 
-    getAllUsers():User[]{
-        return [...this.users.values()]; 
+    async getAllUsers():Promise<User[]>{
+        const [rows] = await this.db.query(
+            `SELECT * FROM users`
+        );
+        return rows as User[];
     }
 
     findUserById(id: string): User | undefined{
-        return this.users.get(id)
+        return undefined
     }
 
     createUser(user: User){
-        this.users.set(user.id, user);
-        return user;
+        // this.users.set(user.id, user);
+        // return user;
+        return undefined;
     }
 
     updateUser(id: string, data: Partial<User>): User | undefined{
-        const existingUser = this.users.get(id);
-        if(!existingUser){
-            return undefined;
-        }
+        // const existingUser = this.users.get(id);
+        // if(!existingUser){
+        //     return undefined;
+        // }
 
-        const updatedUser = {...existingUser, ...data, id};
-        this.users.set(id, updatedUser)
-        return updatedUser;
+        // const updatedUser = {...existingUser, ...data, id};
+        // this.users.set(id, updatedUser)
+        // return updatedUser;
+        return undefined;
     }
 
     deleteUser(id: string): boolean{
-        return this.users.delete(id);
+        // return this.users.delete(id);
+        return false;
     }
 }

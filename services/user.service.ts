@@ -7,20 +7,20 @@ export class UserService{
 
     }
 
-    getAllUsers():User[]
+    async getAllUsers():Promise<User[]>
     {
-        return this.userModel.getAllUsers();
+        return await this.userModel.getAllUsers();
     }
 
     findUserById(id: string): User | undefined{
         return this.userModel.findUserById(id);
     }
 
-    createUser(data: {username: string, email: string}): User{
-        const id = Date.now().toString();
-        const user: User = {id, ...data}
-        return this.userModel.createUser(user);
-    }
+    // createUser(data: {username: string, email: string}): User {
+    //     // const id = Date.now().toString();
+    //     // const user: User = {id, ...data}
+    //     // return this.userModel.createUser(user);
+    // }
 
     updateUser(id: string, user: Partial<User>): User | undefined{
         return this.userModel.updateUser(id, user);
