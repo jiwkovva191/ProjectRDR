@@ -20,4 +20,33 @@ export class SkillModel {
         });
     }
 
+    async getAllSkills():Promise<Skill[]> {
+        return await prisma.skills.findMany({
+            orderBy: {
+                skill_id: "desc"
+            }
+        })
+    }
+
+    async getSkillsByCategory(category_name: string)
+        :Promise<Skill[]> {
+
+        return await prisma.skills.findMany({
+            where: {
+                category_name
+            },
+            orderBy: { skill_id: "desc"}
+        })
+    }
+
+
+    async getSkillById(
+        skill_id: bigint): Promise<Skill | null> {
+
+        return await prisma.skills.findUnique({
+            where: {skill_id}
+        })
+    }
+
+
 }

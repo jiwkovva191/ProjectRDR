@@ -12,6 +12,8 @@ const Navigation = () => {
                 <li><Link to={'/education'}>Education</Link></li>
                 <li><Link to={'/languages'}>Languages</Link></li>
                 <li><Link to={'/trades'}>Trades</Link></li>
+                <li><Link to={'/programming'}>Programming</Link></li>
+                <li><Link to={'/design'}>Design</Link></li>
 
 
 
