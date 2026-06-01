@@ -33,4 +33,55 @@ export class SkillController {
 
         );
     }
+
+     getAllSkills = async (
+         req: Request,
+         res: Response
+     ): Promise<void> => {
+        const skills = await this.skillService.getAllSkills();
+
+        res.json({
+            message: "Skills successfully found",
+            data: skills.map((skill) => ({
+                ...skill,
+                skill_id:
+                skill.skill_id.toString()
+            }))
+        })
+     }
+
+     getSkillsByCategory = async (
+         req: Request,
+         res: Response
+     ): Promise<void> => {
+
+        const category_name = req.params.category_name as string;
+        const skills = await this.skillService.getSkillByCategory(
+            category_name
+        );
+
+        res.json({
+            message: "Skills successfully found",
+            data: skills.map((skill) => ({
+                ...skill,
+                skill_id: skill.skill_id.toString()
+            }))
+        })
+     }
+
+     getSkillById = async (
+         req: Request,
+         res: Response
+     ): Promise<void> => {
+        const skill_id = BigInt(req.params.id as string);
+         const skill = await this.skillService.getSkillById(skill_id);
+
+        res.json({
+            message: "Skill successfully found",
+            data:{
+                ...skill,
+                skill_id: skill?.skill_id.toString()
+            }
+        })
+     }
 }

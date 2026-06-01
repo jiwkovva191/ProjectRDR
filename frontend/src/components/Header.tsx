@@ -2,16 +2,12 @@ import { Link } from "react-router";
 
 import LoginButton from "./LoginButton.tsx";
 
-import {
-    useEffect,
-    useState,
-    useCallback
-} from "react";
+import {useEffect, useState, useCallback} from "react";
 import AddSkillButton from "./AddSkillButton.tsx";
 
 interface SearchResult {
 
-    skill_id: bigint;
+    skill_id: string;
 
     skill_name: string;
 
@@ -26,7 +22,7 @@ const Header = () => {
     const [results, setResults] =
         useState<SearchResult[]>([]);
 
-    const search = useCallback(async () => {
+    const search = useCallback(async (): Promise<void> => {
 
         try {
 
@@ -52,8 +48,6 @@ const Header = () => {
 
         if(query.trim() === "") {
 
-            setResults([]);
-
             return;
 
         }
@@ -66,25 +60,38 @@ const Header = () => {
 
         <div className="w-full h-20 bg-white border-b shadow-sm flex items-center justify-between px-8">
 
-            <div className="flex-1 max-w-2xl">
+            <div className="flex-1 max-w-2xl relative">
 
                 <input
                     type="text"
                     placeholder="Search skills..."
                     value={query}
-                    onChange={(e) =>
-                        setQuery(e.target.value)
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        setQuery(value);
+
+                        if (value.trim() === "") {
+                            setResults([]);
                     }
+
+                    }}
                     className="w-full border border-gray-300 rounded-lg px-4 py-2"
                 />
 
-                <div className="bg-white mt-2 rounded-lg shadow">
 
-                    {results.map((result: SearchResult) => (
+                {query.trim() !== "" && results.length > 0 &&(
+                <div className="bg-white mt-2 rounded-lg shadow absolute z-50 w-full">
 
-                        <div
-                            key={result.skill_id.toString()}
-                            className="p-3 border-b"
+                    {results.map((result) => (
+
+                        <Link
+                            key={result.skill_id}
+                            to={`/skills/${result.skill_id}`}
+                            className="p-3 border-b no-underline block"
+                            onClick={() =>{
+                                setResults([]);
+                                setQuery("");
+                            }}
                         >
 
                             <h3 className="font-semibold">
@@ -95,11 +102,12 @@ const Header = () => {
                                 {result.skill_description}
                             </p>
 
-                        </div>
+                        </Link>
 
                     ))}
 
                 </div>
+                    )}
 
             </div>
 <div className="flex items-center gap-3 ml-6">

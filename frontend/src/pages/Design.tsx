@@ -9,12 +9,12 @@ interface Skill {
 
 }
 
-const Trades = () => {
+const Design = () => {
     const[skills, setSkills] = useState<Skill[]>([]);
     useEffect(() => {
         const fetchSkills = async (): Promise<void> => {
             try{
-                const response = await fetch("http://localhost:3001/skills/category/Trades");
+                const response = await fetch("http://localhost:3001/skills/category/Design");
 
                 const data = await response.json();
 
@@ -45,4 +45,4 @@ const Trades = () => {
     )
 }
 
-export default Trades;
+export default Design;
