@@ -34,18 +34,28 @@ export class UserController{
     }
 
     createUser = async (req: Request, res: Response): Promise<void> => {
-        const { username, email  } = req.body
-        const user = await this.userService.createUser({ username, email, role_id: 2, location_id: 1 });
-        res.status(201).json({
-            'message': 'User Created',
-            'user': user,
-        });
+    // try catch block is added for testing purposes, but might add it ti the other methods too
+        try{
+            // Here we deconstruct everything that comes from the body
+            const { username, email, password, role_id, location_id, bio  } = req.body
+            const user = await this.userService.createUser({ username, email, password,  role_id, location_id, bio });
+            res.status(201).json({
+                'message': 'User Created',
+                'user': user,
+            });
+        } catch(err){
+        console.error("Create user error:", err);
+
+            res.status(500).json({
+                message: "Server Error",
+                error: err
+            }); 
+        }
     }
 
-    updateUser = (req: Request, res: Response) => {
-        const { id } = req.params;
-        const data = req.body;
-        const user = this.userService.updateUser(id as string, data);
+    updateUser = async (req: Request<IdParams>, res: Response): Promise<void> => {
+        const id  = Number(req.params);
+        const user = await this.userService.updateUser(id, req.body);
         if(!user){
             res.status(404).json({
                 'message': 'User not found'
@@ -53,6 +63,7 @@ export class UserController{
             return;
         }
         res.json({
+            'message': 'User updated',
             'user': user,
         }); 
     } 

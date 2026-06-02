@@ -7,7 +7,7 @@ export interface User {
     password?: string;
     role_id?: number;
     location_id?: number;
-    bio?: string
+    bio?: string | null;
 }
 
 export interface CreateUserDTO{
@@ -16,5 +16,5 @@ export interface CreateUserDTO{
     password?: string;
     role_id?: number;
     location_id?: number;
-    bio?: string
+    bio?: string | null;
 }

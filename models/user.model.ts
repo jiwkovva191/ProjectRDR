@@ -22,28 +22,32 @@ export class UserModel{
     // The role and location ids are hardcoded in the UserService and UserController for test purposes.
     async createUser(user: CreateUserDTO): Promise<User>{
         const [result] = await this.db.query<ResultSetHeader>(
-            "INSERT INTO users(user_id, username, email, role_id, location_id) VALUES (NULL, ?, ?, ?, ?)",
-            [user.username, user.email, user.role_id, user.location_id]
+            "INSERT INTO users(user_id, username, email, password, role_id, location_id, bio) VALUES (NULL, ?, ?, ?, ?, ?, ?)",
+            [user.username, user.email, user.password, user.role_id, user.location_id, user.bio]
         )
         return{
             id: result.insertId,
             username: user.username,
             email: user.email,
+            password: user.password,
             role_id: user.role_id,
-            location_id: user.location_id
+            location_id: user.location_id,
+            bio: user.bio
         }
     }
 
-    updateUser(id: string, data: Partial<User>): User | undefined{
-        // const existingUser = this.users.get(id);
-        // if(!existingUser){
-        //     return undefined;
-        // }
+    async updateUser(id: number, data: Partial<User>): Promise<User | undefined>{
+       const existing = await this.findUserById(id);
+       if(!existing){
+        return undefined
+       }
 
-        // const updatedUser = {...existingUser, ...data, id};
-        // this.users.set(id, updatedUser)
-        // return updatedUser;
-        return undefined;
+       const updated = {...existing, ...data}
+       await this.db.query<ResultSetHeader>(
+            "UPDATE users SET username = ?, email = ?, password = ?, role_id = ?, location_id = ?, bio = ? WHERE user_id = ?",
+            [updated.username, updated.email, updated.password, updated.role_id, updated.location_id, updated.bio, id]
+       )
+       return updated;
     }
 
     deleteUser(id: string): boolean{

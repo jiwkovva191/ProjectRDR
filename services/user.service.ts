@@ -17,13 +17,15 @@ export class UserService{
     async createUser(data: CreateUserDTO): Promise<User> {
         return await this.userModel.createUser({
             ...data,
-            role_id: 2,
-            location_id: 1, 
+            // To be changed - for now it will be hardcoded
+            role_id: data.role_id ?? 2,
+            location_id: data.location_id ?? 1, 
+            bio: data.bio ?? null
         });
     }
 
-    updateUser(id: string, user: Partial<User>): User | undefined{
-        return this.userModel.updateUser(id, user);
+    async updateUser(id: number, data: Partial<User>): Promise<User | undefined>{
+        return await this.userModel.updateUser(id, data);
     }
 
     deleteUser(id: string): boolean{
