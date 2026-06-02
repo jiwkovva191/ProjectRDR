@@ -55,18 +55,26 @@ export class UserController{
     }
 
     updateUser = async (req: Request<IdParams>, res: Response): Promise<void> => {
-        const id  = Number(req.params);
-        const user = await this.userService.updateUser(id, req.body);
-        if(!user){
-            res.status(404).json({
-                'message': 'User not found'
-            })
-            return;
+        try{
+            const id  = Number(req.params.id);
+            const user = await this.userService.updateUser(id, req.body);
+            if(!user){
+                res.status(404).json({
+                    'message': 'User not found'
+                })
+                return;
+            }
+            res.json({
+                'message': 'User updated',
+                'user': user,
+            });
+        }   catch(err){
+            console.error("Update user error:", err);
+            res.status(500).json({
+                'message': 'Server error',
+                'error': err
+            });
         }
-        res.json({
-            'message': 'User updated',
-            'user': user,
-        }); 
     } 
 
     deleteUser = (req: Request, res: Response) => {

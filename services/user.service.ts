@@ -15,7 +15,7 @@ export class UserService{
     }
 
     async createUser(data: CreateUserDTO): Promise<User> {
-        console.log("Service received data:", data);
+        console.log("Service received data:", data); 
         return await this.userModel.createUser({
             ...data,
             // To be changed - for now it will be hardcoded

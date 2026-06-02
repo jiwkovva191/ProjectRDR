@@ -19,7 +19,7 @@ export class UserModel{
        return rows[0] as User;
     }
 
-    // The role and location ids are hardcoded in the UserService and UserController for test purposes.
+    // The role and location ids are hardcoded in the UserService for test purposes.
     async createUser(user: CreateUserDTO): Promise<User>{
         console.log("Model received user:", user)
         const [result] = await this.db.query<ResultSetHeader>(
