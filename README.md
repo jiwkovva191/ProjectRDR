@@ -10,3 +10,9 @@ npx prisma db seed - seed the db
      
 (optional)npx prisma studio - open Prisma Studio, usually running on port localhost:5555
 
+# Start the server
+In the root directory of the project - npm run dev
+
+# Start the client (frontend)
+In the frontend directory - npm run dev
+
