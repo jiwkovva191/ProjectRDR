@@ -17,4 +17,22 @@ export class SkillService {
         );
     }
 
+    async getAllSkills(): Promise<Skill[]> {
+        return await this.skillModel.getAllSkills();
+    }
+
+    async getSkillByCategory(category_name: string
+    ) :Promise<Skill[]> {
+
+        return await this.skillModel.getSkillsByCategory(
+            category_name
+        );
+    }
+
+    async getSkillById(
+        skill_id: bigint): Promise<Skill | null> {
+
+        return await this.skillModel.getSkillById(skill_id);
+
+    }
 }

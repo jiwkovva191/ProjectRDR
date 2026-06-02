@@ -7,6 +7,9 @@ import Trades from "./pages/Trades.tsx";
 import LoginForm from "./pages/LoginForm.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import AddSkill from "./pages/AddSkill.tsx";
+import SkillPage from "./pages/SkillPage.tsx";
+import Programming from "./pages/Programming.tsx";
+import Design from "./pages/Design.tsx";
 
 
 const App = () => {
@@ -22,7 +25,10 @@ const App = () => {
             <Route path={'/education'} element={<Education />}/>
             <Route path={'/languages'} element={<Languages />}/>
             <Route path={'/trades'} element={<Trades />}/>
+            <Route path={'/programming'} element={<Programming />}/>
+            <Route path={'/design'} element={<Design />}/>
             <Route path={'/addSkill'} element={<AddSkill />}/>
+            <Route path={'/skills/:id'} element={<SkillPage />}></Route>
 
         </Route>
         <Route path={'/login'} element={<LoginForm />}/>
