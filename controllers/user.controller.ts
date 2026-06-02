@@ -38,6 +38,7 @@ export class UserController{
         try{
             // Here we deconstruct everything that comes from the body
             const { username, email, password, role_id, location_id, bio  } = req.body
+            console.log("Controller received body:", req.body);
             const user = await this.userService.createUser({ username, email, password,  role_id, location_id, bio });
             res.status(201).json({
                 'message': 'User Created',

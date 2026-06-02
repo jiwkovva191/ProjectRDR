@@ -21,6 +21,7 @@ export class UserModel{
 
     // The role and location ids are hardcoded in the UserService and UserController for test purposes.
     async createUser(user: CreateUserDTO): Promise<User>{
+        console.log("Model received user:", user)
         const [result] = await this.db.query<ResultSetHeader>(
             "INSERT INTO users(user_id, username, email, password, role_id, location_id, bio) VALUES (NULL, ?, ?, ?, ?, ?, ?)",
             [user.username, user.email, user.password, user.role_id, user.location_id, user.bio]
