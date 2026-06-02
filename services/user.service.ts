@@ -29,7 +29,7 @@ export class UserService{
         return await this.userModel.updateUser(id, data);
     }
 
-    deleteUser(id: string): boolean{
-        return this.userModel.deleteUser(id);
+    async deleteUser(id: string): Promise<boolean>{
+        return await this.userModel.deleteUser(id);
     }   
 }

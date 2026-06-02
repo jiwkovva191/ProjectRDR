@@ -77,16 +77,24 @@ export class UserController{
         }
     } 
 
-    deleteUser = (req: Request, res: Response) => {
-        const { id } = req.params;
-        const deleted = this.userService.deleteUser(id as string)
-        if(!deleted){
-            res.status(404).json({
-                'message': 'User not found'
-            })
+    deleteUser = async (req: Request, res: Response): Promise<void> => {
+        try{
+            const { id } = req.params;
+            const deleted = await this.userService.deleteUser(id as string)
+            if(!deleted){
+                res.status(404).json({
+                    'message': 'User not found'
+                })
+            }
+            res.json({
+                'message': 'User deleted',
+            }); 
+        } catch (err) {
+            console.error("Delete user error:", err);
+            res.status(500).json({
+                'message': 'Server error',
+                'error': err
+            });
         }
-        res.json({
-            'message': 'User deleted',
-        }); 
     }
 }
