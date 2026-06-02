@@ -98,7 +98,7 @@ model users {
   password                                String          @db.VarChar(20)
   role_id                                 BigInt
   location_id                             BigInt
-  bio                                     String          @db.Text
+  bio                                     String?          @db.Text
   conversations                           conversations[] @ignore
   orders_orders_client_idTousers          orders[]        @relation("orders_client_idTousers")
   orders_orders_offerer_idTousers         orders[]        @relation("orders_offerer_idTousers")
