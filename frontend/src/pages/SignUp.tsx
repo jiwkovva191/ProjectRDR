@@ -4,13 +4,6 @@ import { RegisterUser } from "../components/auth/RegisterUser";
 import { Layout } from "../components/Layout";
 
 const SignUp = () => {
-  // return (
-  //   <>
-  //       <Layout>
-  //       <RegisterUser/>
-  //       <Layout/>
-  //   </>
-  // );
   return (
     <>
       <RegisterUser/>
