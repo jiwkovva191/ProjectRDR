@@ -4,7 +4,7 @@ import { Outlet } from "react-router";
 
 import Header from "./Header.tsx";
 
-const Layout = () => {
+export const Layout = () => {
 
     return (
 
@@ -35,5 +35,3 @@ const Layout = () => {
     )
 
 }
-
-export default Layout;
