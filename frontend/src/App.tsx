@@ -4,7 +4,7 @@ import Layout from "./components/Layout.tsx";
 import Education from "./pages/Education.tsx";
 import Languages from "./pages/Languages.tsx";
 import Trades from "./pages/Trades.tsx";
-import LoginForm from "./pages/LoginForm.tsx";
+import Login from "./pages/Login.tsx";
 import SignUp from "./pages/SignUp.tsx";
 import AddSkill from "./pages/AddSkill.tsx";
 import SkillPage from "./pages/SkillPage.tsx";
@@ -31,7 +31,7 @@ const App = () => {
             <Route path={'/skills/:id'} element={<SkillPage />}></Route>
 
         </Route>
-        <Route path={'/login'} element={<LoginForm />}/>
+        <Route path={'/login'} element={<Login />}/>
         <Route path={'/signup'} element={<SignUp />}/>
 
 

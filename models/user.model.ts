@@ -58,4 +58,12 @@ export class UserModel{
         )
         return result.affectedRows > 0
     }
+
+    async verifyUserLogin(username: string, password: string): Promise <any> {
+        const [rows] = await this.db.query<any[]>(
+            "SELECT user_id, username, email FROM users WHERE username = ? AND password = ?",
+            [username, password]
+        );
+        return rows[0];
+    }
 }

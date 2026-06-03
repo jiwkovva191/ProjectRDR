@@ -97,4 +97,25 @@ export class UserController{
             });
         }
     }
+
+    verifyUserLogin = async (req: Request, res: Response):Promise<void> =>{
+        try{
+            const {username, password} = req.body;
+            const user = await this.userService.verifyUserLogin(username,password);
+
+            if(!user){
+                res.status(401).json({
+                    'message':'Invalid credentials'
+                });
+                return;
+            }
+
+            res.status(200).json({
+                'message':'Successful login',
+                'user': {username: user.username, password: user.password}
+            });
+        }catch(err){
+            res.status(500).json({'error': err});
+        }
+    }
 }
