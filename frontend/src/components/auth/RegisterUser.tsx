@@ -22,10 +22,9 @@ export const RegisterUser = () => {
   console.log(errors);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center w-1/2">
       <h2 className="text-2xl font-bold text-blue-900">Sign Up</h2>
       <form
-        className="w-1/2 border-solid border-blue-100 rounded p-6"
         onSubmit={handleSubmit(createUser)}
       >
         <InputField
