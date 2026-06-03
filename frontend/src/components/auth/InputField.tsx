@@ -1,5 +1,9 @@
-export const InputField = () =>{
-    return(
-       <input type="text" />
-    )
-}
+export const InputField = (props: any) => {
+  return (
+    <input
+      type="text"
+      className="w-full border border-blue-200 rounded p-2"
+      {...props}
+    />
+  );
+};
