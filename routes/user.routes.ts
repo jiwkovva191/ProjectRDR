@@ -18,4 +18,6 @@ userRoutes.post('/users', userController.createUser);
 userRoutes.put('/users/:id', userController.updateUser);
 userRoutes.delete('/users/:id', userController.deleteUser);
 
+//Login route
+userRoutes.post('/login', userController.verifyUserLogin);
 export default userRoutes;
