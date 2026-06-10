@@ -10,6 +10,7 @@ import AddSkill from "./pages/AddSkill.tsx";
 import SkillPage from "./pages/SkillPage.tsx";
 import Programming from "./pages/Programming.tsx";
 import Design from "./pages/Design.tsx";
+import UserProfile from "./pages/UserProfile.tsx";
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
             <Route path={'/design'} element={<Design />}/>
             <Route path={'/addSkill'} element={<AddSkill />}/>
             <Route path={'/skills/:id'} element={<SkillPage />}></Route>
+            <Route path={'/users/:id/profile'} element={<UserProfile/>}></Route>
 
         </Route>
         <Route path={'/login'} element={<Login />}/>
