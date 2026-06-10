@@ -28,7 +28,7 @@ const Header = () => {
 
             const response = await fetch(
 
-                `http://localhost:3001/search?query=${query}`
+                `http://localhost:3000/search?query=${query}`
 
             );
 

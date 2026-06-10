@@ -14,7 +14,7 @@ const Home = () => {
     useEffect(() => {
         const fetchSkills = async (): Promise<void> => {
             try{
-                const response = await fetch("http://localhost:3001/skills");
+                const response = await fetch("http://localhost:3000/skills");
 
                 const data = await response.json();
 
