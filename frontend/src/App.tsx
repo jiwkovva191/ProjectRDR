@@ -12,6 +12,7 @@ import Programming from "./pages/Programming.tsx";
 import Design from "./pages/Design.tsx";
 import UserProfile from "./pages/UserProfile.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
+import WelcomePage from "./pages/WelcomePage.tsx";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
           </Route>
           <Route path={"/login"} element={<Login />} />
           <Route path={"/signup"} element={<SignUp />} />
+          <Route path={"/welcome-page"} element={<WelcomePage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

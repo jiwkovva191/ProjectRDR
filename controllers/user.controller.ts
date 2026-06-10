@@ -112,7 +112,7 @@ export class UserController{
 
             res.status(200).json({
                 'message':'Successful login',
-                'user': {username: user.username, password: user.password}
+                'user': {user_id: user.user_id, username: user.username, password: user.password}
             });
         }catch(err){
             res.status(500).json({'error': err});
