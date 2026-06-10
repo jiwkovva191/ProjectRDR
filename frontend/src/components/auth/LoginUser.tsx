@@ -17,7 +17,9 @@ export const LoginUser = () =>{
     const { login } = useAuth(); 
     const handleLogin = async (data: Partial<CreateUserDTO>) => {
         try {
-            const response = await fetch("http://localhost:3000/login", {
+          const port = import.meta.env.VITE_SERVER_PORT;
+          console.log(port);
+            const response = await fetch(`http://localhost:${port}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
