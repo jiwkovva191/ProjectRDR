@@ -11,14 +11,17 @@ export class SkillController {
         const {
             skill_name,
             skill_description,
-            category_name
+            category_name,
+            available_dates
         } = req.body;
+
 
         const skill =
             await this.skillService.createSkill(
                 skill_name,
                 skill_description,
-                category_name
+                category_name,
+                available_dates
             );
 
         res.json({
@@ -82,6 +85,31 @@ export class SkillController {
                 ...skill,
                 skill_id: skill?.skill_id.toString()
             }
+        })
+     }
+
+     getAvailableDates = async (
+         req: Request,
+         res: Response
+     ): Promise<void> => {
+        const skill_id = BigInt(req.params.id as string);
+        const dates = await this.skillService.getAvailableDates(skill_id);
+
+        res.json({
+            message: "Available dates successfully",
+            data: dates
+        })
+     }
+
+     reserveDate = async (
+         req: Request,
+         res: Response
+     ): Promise<void> => {
+        const availability_id = Number(req.params.id);
+        await this.skillService.reserveDate(availability_id);
+
+        res.json({
+            message: "Reserved dates successfully",
         })
      }
 }
