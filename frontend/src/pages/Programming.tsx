@@ -8,13 +8,13 @@ interface Skill {
     skill_description: string;
 
 }
-
+const port = import.meta.env.VITE_SERVER_PORT;
 const Programming = () => {
     const[skills, setSkills] = useState<Skill[]>([]);
     useEffect(() => {
         const fetchSkills = async (): Promise<void> => {
             try{
-                const response = await fetch("http://localhost:3001/skills/category/Programming");
+                const response = await fetch(`http://localhost:${port}/skills/category/Programming`);
 
                 const data = await response.json();
 
