@@ -7,13 +7,15 @@ export class SkillService {
     async createSkill(
         skill_name: string,
         skill_description: string,
-        category_name: string
+        category_name: string,
+        available_dates: string[]
     ): Promise<Skill> {
 
         return await this.skillModel.create(
             skill_name,
             skill_description,
             category_name,
+            available_dates
         );
     }
 
@@ -34,5 +36,13 @@ export class SkillService {
 
         return await this.skillModel.getSkillById(skill_id);
 
+    }
+
+    async getAvailableDates(skill_id: bigint){
+        return await this.skillModel.getAvailableDates(skill_id);
+    }
+
+    async reserveDate( availability_id:number): Promise<void> {
+        await this.skillModel.reserveDate(availability_id);
     }
 }

@@ -14,7 +14,7 @@ async function rawSql(){
     // Seed categories table
     const categoriesResult = await prisma.$executeRawUnsafe(`
         INSERT IGNORE INTO categories (category_id, category_name)
-        VALUES (1, 'Programming'), (2, 'Languages'), (3, 'Design')
+        VALUES (1, 'Programming'), (2, 'Languages'), (3, 'Design'), (4, 'Education'), (5, 'Trades')
         `);
     console.log('Inserted rows: ', categoriesResult)
 

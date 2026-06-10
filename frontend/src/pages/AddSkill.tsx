@@ -14,10 +14,19 @@ const AddSkillForm = () => {
     const [description, setDescription] = useState("");
     const [skillName, setSkillName] = useState("");
     const [categories, setCategories] = useState<Category[]>([]);
+    const [dates, setDates] = useState<string[]>([]);
+    const [selectedDate, setSelectedDate] = useState("");
 
 
     const handleSubmit = async (): Promise<void> => {
         try {
+
+            console.log({
+                skill_name: skillName,
+                category_name: category,
+                skill_description: description,
+                available_dates: dates
+            });
             const response = await fetch(
                 "http://localhost:3001/skills",
                 {
@@ -27,7 +36,8 @@ const AddSkillForm = () => {
                     body: JSON.stringify({
                         skill_name: skillName,
                         category_name: category,
-                        skill_description: description
+                        skill_description: description,
+                        available_dates: dates
                     })
                 }
             );
@@ -141,8 +151,40 @@ const AddSkillForm = () => {
                         }
                         className="w-full border border-gray-300 p-4 text-xl rounded min-h-[100px] resize-none"
                     />
-
                 </div>
+
+
+                <div className="mb-8">
+                    <label className="block text-xl mb-3">
+                        Available Dates
+                    </label>
+
+                    <div className="flex gap-3">
+                    <input type="date" value={selectedDate}
+                           onChange={(e) => setSelectedDate(e.target.value)}
+                           className="border border-gray-300 p-4 text-xl rounded"/>
+                    <button type="button" onClick={() => {
+                        if(selectedDate && !dates.includes(selectedDate)){
+                            setDates([...dates, selectedDate]);
+                            setSelectedDate("");
+                        }
+                    }}>
+                        Add Date
+                    </button>
+                    </div>
+                    <div className="mt-3 flex flex-wrap gap-3">
+                    {dates.map((date) => (
+                        <div key={date} className="bg-green-100 rounded-full">
+                            {date}
+                        </div>
+
+                    ))}
+                    </div>
+
+
+                    </div>
+
+
 
 
                 <button className="w-full bg-black text-white text-xl py-5 rounded hover:bg-gray-800 transition"
