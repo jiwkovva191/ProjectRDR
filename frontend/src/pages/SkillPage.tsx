@@ -13,7 +13,7 @@ interface Skill {
     category_name: string;
     skill_description: string;
 }
-
+const port = import.meta.env.VITE_SERVER_PORT;
 const SkillPage = () => {
     const {id} = useParams();
     const [skill,setSkill] = useState<Skill | null>(null);
@@ -24,7 +24,7 @@ const SkillPage = () => {
     useEffect(() => {
         const fetchSkill = async (): Promise<void> => {
             try {
-                const response = await fetch(`http://localhost:3001/skills/${id}`);
+                const response = await fetch(`http://localhost:${port}/skills/${id}`);
                 const data = await response.json();
                 setSkill(data.data);
             }
@@ -38,7 +38,7 @@ const SkillPage = () => {
     useEffect(() => {
         const fetchDates = async (): Promise<void> => {
             try {
-                const response = await fetch(`http://localhost:3001/skills/${id}/dates`);
+                const response = await fetch(`http://localhost:${port}/skills/${id}/dates`);
                 const data = await response.json();
                 setDates(data.data);
             } catch (error) {
@@ -55,7 +55,7 @@ const SkillPage = () => {
         }
 
         try {
-            await fetch(`http://localhost:3001/availability/${selectedDate}`, {method: "PATCH"});
+            await fetch(`http://localhost:${port}/availability/${selectedDate}`, {method: "PATCH"});
             setReserveMessage("Date reserved!")
 
         } catch (error) {

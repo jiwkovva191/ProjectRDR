@@ -14,7 +14,7 @@ interface SearchResult {
     skill_description: string;
 
 }
-
+const port = import.meta.env.VITE_SERVER_PORT;
 const Header = () => {
 
     const [query, setQuery] = useState("");
@@ -28,7 +28,7 @@ const Header = () => {
 
             const response = await fetch(
 
-                `http://localhost:3001/search?query=${query}`
+                `http://localhost:${port}/search?query=${query}`
 
             );
 

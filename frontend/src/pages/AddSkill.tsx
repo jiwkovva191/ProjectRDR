@@ -16,7 +16,7 @@ const AddSkillForm = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [dates, setDates] = useState<string[]>([]);
     const [selectedDate, setSelectedDate] = useState("");
-
+    const port = import.meta.env.VITE_SERVER_PORT;
 
     const handleSubmit = async (): Promise<void> => {
         try {
@@ -28,7 +28,9 @@ const AddSkillForm = () => {
                 available_dates: dates
             });
             const response = await fetch(
-                "http://localhost:3001/skills",
+
+            (`http://localhost:${port}/skills`),
+
                 {
                     method: "POST",
                     headers: {"Content-Type" : "application/json"
@@ -53,7 +55,7 @@ const AddSkillForm = () => {
         const fetchCategories = async (): Promise<void> => {
 
             try {
-                const response = await fetch("http://localhost:3001/categories");
+                const response = await fetch(`http://localhost:${port}/categories`)
 
                 const data = await response.json();
                 setCategories(data.data);
