@@ -57,7 +57,7 @@ availability_id   BigInt   @id @default(autoincrement())
 skill_id          BigInt
 available_date    DateTime
 is_booked         Boolean  @default(false)
-skills            skills  @relation(fields: [skill_id], referencesД: [skill_id], onDelete: Cascade)
+skills            skills  @relation(fields: [skill_id], references: [skill_id], onDelete: Cascade)
 
 @@index([skill_id])
 }
