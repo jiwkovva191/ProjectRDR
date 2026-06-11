@@ -39,6 +39,11 @@ skillRoutes.patch(
     skillController.reserveDate
 )
 
+skillRoutes.get(
+    "/users/:id/skills",
+    skillController.getUserSkills
+)
+
 skillRoutes.delete(
     "/skills/:id",
     skillController.deleteSkill

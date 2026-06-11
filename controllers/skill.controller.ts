@@ -115,14 +115,28 @@ export class SkillController {
         })
      }
 
-     deleteSkill = async (
-         req: Request,
-         res: Response
-     ): Promise<void> => {
-        const skill_id = BigInt(req.params.id as string);
-        const deleted = await this.skillService.deleteSkill(skill_id);
+    getUserSkills = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
+        const user_id = Number(req.params.id);
+        const skills = await this.skillService.getUserSkills(user_id);
         res.json({
-            success: deleted
+            message: "User skills found",
+            data: skills.map(skill =>({
+                ...skill,
+                skill_id: skill.skill_id.toString(),
+            }))
         })
-     }
-}
+    }
+
+    deleteSkill = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
+        const skill_id = BigInt(req.params.id as string);
+        await this.skillService.deleteSkill(skill_id);
+        res.json({
+            message: "Skill successfully deleted"
+        })
+    }}

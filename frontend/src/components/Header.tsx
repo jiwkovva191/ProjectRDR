@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import AddSkillButton from "./AddSkillButton.tsx";
 import { useAuth } from "../context/AuthContext.tsx";
 import LogoutButton from "./LogoutButton.tsx";
+import MySkillsButton from "./MySkillsButton.tsx";
 import { MyProfileButton } from "./auth/MyProfileButton.tsx";
 
 interface SearchResult {
@@ -91,6 +92,9 @@ const Header = () => {
       <div className="flex items-center gap-3 ml-6">
         {user ? (
           <>
+            <Link to={"/my-skills"}>
+              <MySkillsButton />
+            </Link>
             <Link to={"/addSkill"}>
               <AddSkillButton />
             </Link>

@@ -13,6 +13,7 @@ import Design from "./pages/Design.tsx";
 import UserProfile from "./pages/UserProfile.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import WelcomePage from "./pages/WelcomePage.tsx";
+import MySkills from "./pages/MySkills.tsx";
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             <Route path={"/design"} element={<Design />} />
             <Route path={"/addSkill"} element={<AddSkill />} />
             <Route path={"/skills/:id"} element={<SkillPage />}></Route>
+            <Route path={"/my-skills"} element={<MySkills />}></Route>
             <Route
               path={"/users/:id/profile"}
               element={<UserProfile />}

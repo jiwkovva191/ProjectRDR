@@ -95,16 +95,37 @@ export class SkillModel {
         )
     }
 
-    async deleteSkill(
-        skill_id: bigint
-    ): Promise<boolean> {
-        const [result] = await this.db.query<ResultSetHeader>(
+    async getUserSkills(user_id: number): Promise<Skill[]> {
+        const [rows] = await this.db.query<RowDataPacket[]>(
+            `SELECT s.*
+                  FROM skills s
+                  INNER JOIN user_skills us 
+                  ON s.skill_id = us.skill_id
+                  WHERE us.user_id = ?
+                  ORDER BY s.skill_id DESC`,
+            [user_id]
+        )
+        return rows as Skill[];
+    }
+
+    async deleteSkill(skill_id: bigint): Promise<void> {
+        await this.db.query(
+            `DELETE FROM user_skills
+                  WHERE skill_id = ?`,
+            [skill_id]
+        );
+
+        await this.db.query(
+            `DELETE FROM skill_availability 
+                 WHERE skill_id = ?`,
+            [skill_id]
+        );
+
+        await this.db.query(
             `DELETE FROM skills
                   WHERE skill_id = ?`,
             [skill_id]
-        )
-        return result.affectedRows > 0;
+        );
     }
 
 }
-
