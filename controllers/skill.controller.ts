@@ -139,5 +139,4 @@ export class SkillController {
         res.json({
             message: "Skill successfully deleted"
         })
-    }
-}
+    }}

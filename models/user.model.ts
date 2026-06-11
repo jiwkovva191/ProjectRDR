@@ -13,7 +13,12 @@ export class UserModel{
 
     async findUserById(id: number): Promise<User | undefined>{
        const [rows] = await this.db.query<RowDataPacket[]>(
-        "SELECT * FROM users WHERE user_id = ?",
+        `SELECT u.user_id, u.username, u.email, u.bio, l.location_name, r.role_name
+        from users as u
+        JOIN locations as l on u.location_id=l.location_id
+        JOIN roles as r on u.role_id=r.role_id
+        WHERE u.user_id=?
+        `,
         [id]
        );
        return rows[0] as User;

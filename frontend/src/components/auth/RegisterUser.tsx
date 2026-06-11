@@ -3,6 +3,7 @@ import type { CreateUserDTO } from "../../../../types/User";
 import { InputField } from "./InputField";
 import { SubmitButton } from "./SubmitButton";
 import { InputError } from "./InputError";
+import { useNavigate } from "react-router";
 
 export const RegisterUser = () => {
   const {
@@ -11,14 +12,20 @@ export const RegisterUser = () => {
     formState: { errors },
   } = useForm<CreateUserDTO>();
 
+  const navigate = useNavigate();
+
   const createUser = async (data: CreateUserDTO) => {
     const port = import.meta.env.VITE_SERVER_PORT;
     console.log(port);
-    await fetch(`http://localhost:${port}/users`, {
+    const response = await fetch(`http://localhost:${port}/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     });
+    if(response.ok){
+      alert("Registration successful!")
+      navigate('/login');
+    }
   };
 
   console.log(errors);
@@ -53,6 +60,7 @@ export const RegisterUser = () => {
 
         <SubmitButton text="Register" />
       </form>
+      <h3>Already have an account? <a className="font-bold text-blue-800" href="/login">Log In</a></h3>
     </div>
   );
 };
