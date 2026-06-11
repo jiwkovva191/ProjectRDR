@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { InputField } from "./InputField";
 import { SubmitButton } from "./SubmitButton";
 import { InputError } from "./InputError";
+import { useAuth } from "../../context/AuthContext";
 
 export const LoginUser = () =>{
     const {
@@ -13,9 +14,12 @@ export const LoginUser = () =>{
     } = useForm<CreateUserDTO>();
 
     const navigate = useNavigate();
+    const { login } = useAuth(); 
     const handleLogin = async (data: Partial<CreateUserDTO>) => {
         try {
-            const response = await fetch("http://localhost:3000/login", {
+          const port = import.meta.env.VITE_SERVER_PORT;
+          console.log(port);
+            const response = await fetch(`http://localhost:${port}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -30,6 +34,14 @@ export const LoginUser = () =>{
             alert(result.message || "Invalid credentials")
             return;
         }
+
+        // result saves the response that sends the user object back (by the backend)
+        // updates global state and saves it to the localStorage
+        login({
+          id: result.user.user_id,
+          username: result.user.username,
+          email : result.user.email
+        });
 
         navigate("/");
 

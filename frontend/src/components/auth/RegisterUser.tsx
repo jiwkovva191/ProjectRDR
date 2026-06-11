@@ -12,7 +12,9 @@ export const RegisterUser = () => {
   } = useForm<CreateUserDTO>();
 
   const createUser = async (data: CreateUserDTO) => {
-    await fetch("http://localhost:3000/users", {
+    const port = import.meta.env.VITE_SERVER_PORT;
+    console.log(port);
+    await fetch(`http://localhost:${port}/users`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
