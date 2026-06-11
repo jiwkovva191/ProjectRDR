@@ -95,5 +95,16 @@ export class SkillModel {
         )
     }
 
+    async deleteSkill(
+        skill_id: bigint
+    ): Promise<boolean> {
+        const [result] = await this.db.query<ResultSetHeader>(
+            `DELETE FROM skills
+                  WHERE skill_id = ?`,
+            [skill_id]
+        )
+        return result.affectedRows > 0;
+    }
+
 }
 

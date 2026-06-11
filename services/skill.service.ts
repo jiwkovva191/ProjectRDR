@@ -47,4 +47,8 @@ export class SkillService {
     async reserveDate( availability_id:number): Promise<void> {
         await this.skillModel.reserveDate(availability_id);
     }
+
+    async deleteSkill( skill_id: bigint): Promise<boolean> {
+        return await this.skillModel.deleteSkill(skill_id);
+    }
 }

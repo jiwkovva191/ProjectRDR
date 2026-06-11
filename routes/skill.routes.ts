@@ -39,6 +39,11 @@ skillRoutes.patch(
     skillController.reserveDate
 )
 
+skillRoutes.delete(
+    "/skills/:id",
+    skillController.deleteSkill
+)
+
 
 
 export default skillRoutes;
