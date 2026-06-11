@@ -9,7 +9,8 @@ export class SkillModel {
         skill_name: string,
         skill_description: string,
         category_name: string,
-        available_dates: string[]
+        available_dates: string[],
+        user_id: number
     ) :Promise<Skill> {
 
         const [result] = await this.db.query<ResultSetHeader>(
@@ -18,6 +19,13 @@ export class SkillModel {
         );
 
         const skillId = result.insertId;
+
+        // newly added - insert into the junction table user_skills.
+        await this.db.query<ResultSetHeader>(
+            `INSERT INTO user_skills(user_skills_id, user_id, skill_id) VALUES(NULL, ?, ?)`,
+            [user_id, skillId]
+        );
+
         for (const date of available_dates) {
             await this.db.query<ResultSetHeader>(
                 `INSERT INTO skill_availability(availability_id, skill_id, available_date, is_booked) VALUES(NULL, ?, ?, FALSE)`,

@@ -8,14 +8,16 @@ export class SkillService {
         skill_name: string,
         skill_description: string,
         category_name: string,
-        available_dates: string[]
+        available_dates: string[],
+        user_id: number
     ): Promise<Skill> {
 
         return await this.skillModel.create(
             skill_name,
             skill_description,
             category_name,
-            available_dates
+            available_dates,
+            user_id
         );
     }
 

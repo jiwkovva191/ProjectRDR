@@ -12,7 +12,8 @@ export class SkillController {
             skill_name,
             skill_description,
             category_name,
-            available_dates
+            available_dates,
+            user_id
         } = req.body;
 
 
@@ -21,7 +22,8 @@ export class SkillController {
                 skill_name,
                 skill_description,
                 category_name,
-                available_dates
+                available_dates,
+                Number(user_id)
             );
 
         res.json({
