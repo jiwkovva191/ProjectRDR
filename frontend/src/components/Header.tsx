@@ -95,7 +95,7 @@ const Header = () => {
               <AddSkillButton />
             </Link>
 
-            <Link to={"/users/${user.id}/profile"}>
+            <Link to={`/users/${user.id}/profile`}>
               <MyProfileButton />
             </Link>
 
