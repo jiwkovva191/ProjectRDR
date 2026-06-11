@@ -53,6 +53,7 @@ export const RegisterUser = () => {
 
         <SubmitButton text="Register" />
       </form>
+      <h3>Already have an account? <a className="font-bold text-blue-800" href="/login">Log In</a></h3>
     </div>
   );
 };
