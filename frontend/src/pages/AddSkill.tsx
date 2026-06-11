@@ -16,6 +16,7 @@ const AddSkillForm = () => {
     const [categories, setCategories] = useState<Category[]>([]);
     const [dates, setDates] = useState<string[]>([]);
     const [selectedDate, setSelectedDate] = useState("");
+    const [message, setMessage] = useState("");
     const port = import.meta.env.VITE_SERVER_PORT;
 
     const handleSubmit = async (): Promise<void> => {
@@ -43,6 +44,12 @@ const AddSkillForm = () => {
                     })
                 }
             );
+            if(response.ok) {
+                setMessage(
+                    "Skill created!"
+                )
+            }
+
             const data = await response.json();
             console.log(data);
         }
@@ -197,6 +204,12 @@ const AddSkillForm = () => {
                     Add Skill
 
                 </button>
+
+                {message && (
+                    <div className="text-green-700 text-center mt-4 font-medium">
+                        {message}
+                    </div>
+                )}
 
             </div>
 

@@ -1,45 +1,17 @@
-import { PrismaClient }
-    from "@prisma/client";
-
-import {
-    SearchResult
-} from "../types/Search";
-
-const prisma = new PrismaClient();
+import {SearchResult} from "../types/Search";
+import {Pool,RowDataPacket} from "mysql2/promise";
 
 export class SearchModel {
+    constructor(private db: Pool) {}
 
-    async search(
-        query: string
-    ): Promise<SearchResult[]> {
+    async search(query: string): Promise<SearchResult[]> {
+        const [rows] = await this.db.query<RowDataPacket[]>(
+            `SELECT *
+             FROM skills
+             WHERE skill_name LIKE ?
+                OR skill_description LIKE ?`,
+            [`%${query}%`, `%${query}%`])
 
-        const results =
-            await prisma.skills.findMany({
+        return rows as SearchResult[];
 
-                where: {
-
-                    OR: [
-
-                        {
-                            skill_name: {
-                                contains: query
-                            }
-                        },
-
-                        {
-                            skill_description: {
-                                contains: query
-                            }
-                        }
-
-                    ]
-
-                }
-
-            });
-
-        return results as SearchResult[];
-
-    }
-
-}
+    }}

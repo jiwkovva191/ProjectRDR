@@ -112,4 +112,15 @@ export class SkillController {
             message: "Reserved dates successfully",
         })
      }
+
+     deleteSkill = async (
+         req: Request,
+         res: Response
+     ): Promise<void> => {
+        const skill_id = BigInt(req.params.id as string);
+        const deleted = await this.skillService.deleteSkill(skill_id);
+        res.json({
+            success: deleted
+        })
+     }
 }
