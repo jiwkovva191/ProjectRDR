@@ -75,6 +75,7 @@ export const LoginUser = () =>{
     
             <SubmitButton text="Log In" />
           </form>
+          <h3>Don't have an account? <a className="font-bold text-blue-800" href="/signup">Sign Up</a></h3>
         </div>
       );
 }
