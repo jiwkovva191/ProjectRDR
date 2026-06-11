@@ -108,5 +108,24 @@ export class SkillModel {
         return rows as Skill[];
     }
 
-}
+    async deleteSkill(skill_id: bigint): Promise<void> {
+        await this.db.query(
+            `DELETE FROM user_skills
+                  WHERE skill_id = ?`,
+            [skill_id]
+        );
 
+        await this.db.query(
+            `DELETE FROM skill_availability 
+                 WHERE skill_id = ?`,
+            [skill_id]
+        );
+
+        await this.db.query(
+            `DELETE FROM skills
+                  WHERE skill_id = ?`,
+            [skill_id]
+        );
+    }
+
+}

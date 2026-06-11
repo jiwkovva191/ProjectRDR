@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useAuth} from "../context/AuthContext.tsx"
+import DeleteSkillButton from "../components/DeleteSkillButton.tsx";
 
 interface Skill {
     skill_id: string;
@@ -30,6 +31,20 @@ useEffect(() => {
     }
 }, [user])
 
+    const handleDelete = async (
+        skill_id: string
+    )=> {
+    try {
+        const port = import.meta.env.VITE_SERVER_PORT;
+        await fetch(`http://localhost:${port}/skills/${skill_id}`,
+            {method: "DELETE"}
+        )
+        setSkills(skills.filter(skill => skill.skill_id !== skill_id))
+    } catch(error) {
+        console.log(error);
+    }
+    }
+
 
     return (
         <div className = "p-8">
@@ -52,6 +67,13 @@ useEffect(() => {
                         <p className="mt-2">
                             {skill.skill_description}
                         </p>
+                        <div className="mt-4">
+                            <DeleteSkillButton
+                                skill_id={skill.skill_id}
+                                onDelete={handleDelete}
+                                />
+
+                        </div>
                     </div>
                 ))}
             </div>

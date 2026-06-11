@@ -129,4 +129,15 @@ export class SkillController {
             }))
         })
     }
+
+    deleteSkill = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
+        const skill_id = BigInt(req.params.id as string);
+        await this.skillService.deleteSkill(skill_id);
+        res.json({
+            message: "Skill successfully deleted"
+        })
+    }
 }

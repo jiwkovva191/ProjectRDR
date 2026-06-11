@@ -44,5 +44,10 @@ skillRoutes.get(
     skillController.getUserSkills
 )
 
+skillRoutes.delete(
+    "/skills/:id",
+    skillController.deleteSkill
+)
+
 
 export default skillRoutes;
