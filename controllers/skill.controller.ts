@@ -114,4 +114,19 @@ export class SkillController {
             message: "Reserved dates successfully",
         })
      }
+
+    getUserSkills = async (
+        req: Request,
+        res: Response
+    ): Promise<void> => {
+        const user_id = Number(req.params.id);
+        const skills = await this.skillService.getUserSkills(user_id);
+        res.json({
+            message: "User skills found",
+            data: skills.map(skill =>({
+                ...skill,
+                skill_id: skill.skill_id.toString(),
+            }))
+        })
+    }
 }

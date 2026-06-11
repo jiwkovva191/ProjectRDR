@@ -118,4 +118,5 @@ export class UserController{
             res.status(500).json({'error': err});
         }
     }
+
 }

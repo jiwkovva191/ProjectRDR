@@ -39,6 +39,10 @@ skillRoutes.patch(
     skillController.reserveDate
 )
 
+skillRoutes.get(
+    "/users/:id/skills",
+    skillController.getUserSkills
+)
 
 
 export default skillRoutes;

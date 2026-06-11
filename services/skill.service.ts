@@ -47,4 +47,8 @@ export class SkillService {
     async reserveDate( availability_id:number): Promise<void> {
         await this.skillModel.reserveDate(availability_id);
     }
+
+    async getUserSkills(user_id: number): Promise<Skill[]> {
+        return await this.skillModel.getUserSkills(user_id);
+    }
 }

@@ -95,5 +95,18 @@ export class SkillModel {
         )
     }
 
+    async getUserSkills(user_id: number): Promise<Skill[]> {
+        const [rows] = await this.db.query<RowDataPacket[]>(
+            `SELECT s.*
+                  FROM skills s
+                  INNER JOIN user_skills us 
+                  ON s.skill_id = us.skill_id
+                  WHERE us.user_id = ?
+                  ORDER BY s.skill_id DESC`,
+            [user_id]
+        )
+        return rows as Skill[];
+    }
+
 }
 
