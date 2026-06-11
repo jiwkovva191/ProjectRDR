@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import AddSkillButton from "./AddSkillButton.tsx";
 import { useAuth } from "../context/AuthContext.tsx";
 import LogoutButton from "./LogoutButton.tsx";
+import { MyProfileButton } from "./auth/MyProfileButton.tsx";
 
 interface SearchResult {
   skill_id: string;
@@ -18,6 +19,7 @@ const Header = () => {
   const [results, setResults] = useState<SearchResult[]>([]);
 
   const { user } = useAuth();
+  console.log(user);
 
   const search = useCallback(async (): Promise<void> => {
     try {
@@ -91,6 +93,10 @@ const Header = () => {
           <>
             <Link to={"/addSkill"}>
               <AddSkillButton />
+            </Link>
+
+            <Link to={"/users/${user.id}/profile"}>
+              <MyProfileButton />
             </Link>
 
             <LogoutButton />
